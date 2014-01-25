@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		{% if user.is_authenticated %}
+		<h1>Rango says... hello {{ user.username }}!</h1>
+
+		{% else %}
+		<h1>Rango says... hello world!</h1>
+		{% endif %}
+	</head>
+	<body>
+		{% if user.is_authenticated %}
+			<a href="/foodfinder/restricted/">Restricted Page</a><br />
+			<a href="/foodfinder/logout/">Logout</a><br />
+		{% else %}
+			<a href="/foodfinder/register/">Register Here</a><br />
+			<a href="/foodfinder/login/">Login</a><br />
+		{% endif %}
+			<a href="/foodfinder/about/">About</a><br/>	
+	</body>
+</html>

@@ -5,10 +5,16 @@ from django.shortcuts import render_to_response
 from foodfinder.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+
+def redirection(request):
+	context = RequestContext(request)
+	return HttpResponseRedirect('/foodfinder/')
 
 def index(request):
 	context = RequestContext(request)
-	return HttpResponse('First View.')
+	return render_to_response('foodfinder/selection_page.html', context)
 
 def register(request):
 	context = RequestContext(request)
@@ -58,7 +64,17 @@ def user_login(request):
 			print "Invalid login details."
 			return HttpResponse("Invalid login details supplied. Foiled you, wannabe hacker.")
 	else:
-		return render_to_response('foodfinder/login.html', {}, context)
+		return render_to_response("foodfinder/login.html", {}, context)
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/foodfinder/')
+
+@login_required
+def restricted(request):
+	context = RequestContext(request)
+	return HttpResponse('Only enter if logged in. Fool.')
 
 
 
