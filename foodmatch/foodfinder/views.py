@@ -16,7 +16,12 @@ def index(request):
 	context = RequestContext(request)
 	return render_to_response('foodfinder/selection_page.html', context)
 
+request_record = 0
+
+
 def register(request):
+	global request_record
+	request_record = request
 	context = RequestContext(request)
 	registered = False
 	if request.method == 'POST':
@@ -73,8 +78,8 @@ def user_logout(request):
 
 @login_required
 def restricted(request):
-	context = RequestContext(request)
-	return HttpResponse('Only enter if logged in. Fool.')
+	context = RequestContext(request) 
+	return HttpResponse('I live to do nothing.')
 
 
 

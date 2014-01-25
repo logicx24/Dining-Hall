@@ -32,6 +32,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#AUTH_PROFILE_MODULE = "foodfinder.UserProfile" #PROFILE CREATION.
+
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.

@@ -1,15 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+#from views import request_record
 
 # Create your models here.
-class Profile(models.Model):
 
-	name = models.CharField(max_length=128)
-	phone_number = models.IntegerField(default=1111111111)
-	email = models.CharField(max_length=128)
 
-	def __unicode__(self):
-		return self.name
+#class Dining_Hall(models.Model):
+
 
 class Menu(models.Model):
 	dining_hall = models.CharField(max_length=128)
@@ -24,5 +21,7 @@ class UserProfile(models.Model):
 
 	def __unicode__(self):
 		return self.user.username
+
+
 
 
