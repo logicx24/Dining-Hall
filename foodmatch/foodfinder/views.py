@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from foodfinder.models import UserProfile
+#from django.contrib.auth.models import User
 
 def redirection(request):
 	context = RequestContext(request)
@@ -20,9 +21,10 @@ def index(request):
 	all_entries = preference_list.all()
 	x = []
 	for entry in all_entries:
-		x.append(entry)
+		
+		y = entry.preferences
 	
-	return render_to_response('foodfinder/selection_page.html', {'preference':x}, context)
+	return render_to_response('foodfinder/selection_page.html', {'preference':y}, context)
 
 request_record = 0
 
