@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from foodfinder.models import UserProfile
-#from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 def redirection(request):
 	context = RequestContext(request)
@@ -16,18 +16,14 @@ def redirection(request):
 
 def index(request):
 	context = RequestContext(request)
-	#preference_list = UserProfile.objects
 	preference_list = UserProfile.objects
 	all_entries = preference_list.all()
 	x = []
 	for entry in all_entries:
-		
 		y = entry.preferences
-	
-	return render_to_response('foodfinder/selection_page.html', {'preference':y}, context)
+	return render_to_response('foodfinder/index.html', {'preference':y}, context)
 
 request_record = 0
-
 
 def register(request):
 	global request_record
@@ -42,14 +38,10 @@ def register(request):
 			user = user_form.save()
 			user.set_password(user.password)
 			user.save()
-
 			profile = profile_form.save(commit=False)
 			profile.user = user
-
 			profile.phone = request.POST['phone']
-
 			profile.save()
-
 			registered = True
 		else:
 			print user_form.errors, profile_form.errors
@@ -57,9 +49,8 @@ def register(request):
 		user_form = UserForm()
 		profile_form = UserProfileForm()
 
-	return render_to_response('foodfinder/index.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
+	return render_to_response('foodfinder/register.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
             context)
-
 
 def user_login(request):
 	context = RequestContext(request)
@@ -72,7 +63,7 @@ def user_login(request):
 		if user is not None:
 			if user.is_active:
 				login(request, user)
-				return HttpResponseRedirect('/foodfinder/')
+				return HttpResponseRedirect('/foodfinder/home/')
 			else:
 				return HttpResponse('Your account was disabled. Bitch.')
 		else:
@@ -82,43 +73,20 @@ def user_login(request):
 		return render_to_response("foodfinder/login.html", {}, context)
 
 @login_required
+def home(request):
+	context = RequestContext(request)
+	u = User.objects.get(username=request.user)
+	try:
+		up = UserProfile.objects.get(user=u)
+	except:
+		up = None
+	context_dict = {}
+	context_dict['user'] = u
+	context_dict['userprofile'] = up
+	return render_to_response("foodfinder/home.html", context_dict, context)
+
+@login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/foodfinder/')
-
-@login_required
-def restricted(request):
-	context = RequestContext(request) 
-	return render_to_response("foodfinder/restricted1.html", {}, context)
-
-	
-
-
-
-#form = UserProfileForm(request.POST)
-#	if form.is_valid():
-#		form.save(commit=True)
-#else:
-#	form = UserProfileForm()
-#	return HttpResponse('Failure.')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

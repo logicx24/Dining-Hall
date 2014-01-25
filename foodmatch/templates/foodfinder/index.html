@@ -1,29 +1,17 @@
 <!DOCTYPE html>
+
 <html>
-    <head>
-        <title>FoodMatch</title>
-    </head>
-
-    <body>
-        <h1>Register with FoodMatch</h1>
-
-        {% if registered %}
-        Foodmatch says: <strong>thank you for registering!</strong>
-        <a href="/foodfinder/">Return to the homepage.</a><br />
-        {% else %}
-        Foodmatch says: <strong>register here!</strong><br />
-
-        <form id="user_form" method="post" action="/foodfinder/register/"
-                enctype="multipart/form-data">
-
-            {% csrf_token %}
-
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Register" />
-        </form>
-        {% endif %}
-    </body>
+	<head>
+		<title>Hungry Bear</title>
+	</head>
+	<body>
+		{% if user.is_authenticated %}
+			<meta http-equiv="refresh" content="0" url="/foodfinder/home/">			
+		{% else %}
+			<h1>Welcome to Hungry Bear</h1>
+			<p>Hungry? Just tell <b>Hungry Bear</b> what you like to eat, <br> and it'll notify you whenever Cal Dining is serving something you like!</p>
+			<a href="/foodfinder/register/">Register Here</a><br />
+			<a href="/foodfinder/login/">Login</a><br />
+		{% endif %}		
+	</body>
 </html>

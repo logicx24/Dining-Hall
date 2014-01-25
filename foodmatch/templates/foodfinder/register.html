@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FoodMatch</title>
+    </head>
+
+    <body>
+        <h1>Register for Hungry Bear</h1>
+        {% if registered %}
+            <strong>Thanks for signing up!</strong><br>
+            Go ahead and <a href="/foodfinder/login">login.</a><br />
+        {% else %}
+        <form id="user_form" method="post" action="/foodfinder/register/"
+                enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Register" />
+        </form><br />
+        {% endif %}
+        <a href='/foodfinder/index/'>Back to main page.</a>
+    </body>
+</html>
