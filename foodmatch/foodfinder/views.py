@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from foodfinder.models import UserProfile
 
 def redirection(request):
 	context = RequestContext(request)
@@ -14,7 +15,14 @@ def redirection(request):
 
 def index(request):
 	context = RequestContext(request)
-	return render_to_response('foodfinder/selection_page.html', context)
+	#preference_list = UserProfile.objects
+	preference_list = UserProfile.objects
+	all_entries = preference_list.all()
+	x = []
+	for entry in all_entries:
+		x.append(entry)
+	
+	return render_to_response('foodfinder/selection_page.html', {'preference':x}, context)
 
 request_record = 0
 
@@ -79,17 +87,18 @@ def user_logout(request):
 @login_required
 def restricted(request):
 	context = RequestContext(request) 
-	return HttpResponse('I live to do nothing.')
+	return render_to_response("foodfinder/restricted1.html", {}, context)
+
+	
 
 
 
-
-
-
-
-
-
-
+#form = UserProfileForm(request.POST)
+#	if form.is_valid():
+#		form.save(commit=True)
+#else:
+#	form = UserProfileForm()
+#	return HttpResponse('Failure.')
 
 
 

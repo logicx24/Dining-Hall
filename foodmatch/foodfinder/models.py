@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 
 #class Dining_Hall(models.Model):
 
-
 class Menu(models.Model):
 	dining_hall = models.CharField(max_length=128)
 
@@ -18,9 +17,12 @@ class Food(models.Model):
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	phone = models.IntegerField(default=0)
+	preferences = models.CharField(max_length=128)
 
 	def __unicode__(self):
 		return self.user.username
+
+
 
 
 

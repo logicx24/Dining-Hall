@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Insert preferences here.</title>
+	</head>
+	<body>
+
+		<form id="Preference form" method="post" action="/foodfinder/restricted/">{% csrf_token %}
+			Preferences: <input type="text" name="username" value="" size="50" />
+            
+            <br />
+            <input type="submit" value="submit" />
+        </form>
+	</body>
+</html>
