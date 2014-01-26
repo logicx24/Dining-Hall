@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 
 def redirection(request):
 	context = RequestContext(request)
-	return HttpResponseRedirect('/foodfinder/')
+	return HttpResponseRedirect('/foodfinder/index/')
 
 def index(request):
 	context = RequestContext(request)
@@ -72,21 +72,43 @@ def user_login(request):
 	else:
 		return render_to_response("foodfinder/login.html", {}, context)
 
+def get_context_dict(request):
+	u = User.objects.get(username=request.user)
+	try:
+		up = UserProfile.objects.get(user=u)
+	except:
+		up = None
+	context_dict = {'user': u, 'userprofile': up}
+	return context_dict;
+
 @login_required
 def home(request):
+	context = RequestContext(request)
+	return render_to_response("foodfinder/home.html", get_context_dict(request), context)
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/foodfinder/')
+
+@login_required
+def settings(request):
 	context = RequestContext(request)
 	u = User.objects.get(username=request.user)
 	try:
 		up = UserProfile.objects.get(user=u)
 	except:
 		up = None
-	context_dict = {}
-	context_dict['user'] = u
-	context_dict['userprofile'] = up
-	return render_to_response("foodfinder/home.html", context_dict, context)
+	context_dict = {'user': u, 'userprofile': up}
+	if request.method == "POST":
+		new_prefs = request.POST.get('preferences')
+		up.preferences = new_prefs
+		up.save()
+		return HttpResponseRedirect('/foodfinder/home/')
+	else:
+		user_form = UserForm()
+		profile_form = UserProfileForm()
 
-@login_required
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect('/foodfinder/')
+	#return render_to_response('foodfinder/settings.html', {'user_form': user_form, 'profile_form': profile_form}, context)
+	return render_to_response("foodfinder/settings.html", get_context_dict(request), context)
 

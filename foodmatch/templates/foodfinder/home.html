@@ -2,19 +2,20 @@
 
 <html>
 	<head>
-		<title>FoodFinder | Home</title>
+		<title>Hungry Bear - Home</title>
 	</head>
 	<body>
 		<h1>Welcome, {{ user.username }}, to Hungry Bear</h1> 
-		<a href="/foodfinder/logout/">Logout</a><br /><br>
-		<strong>This is you.</strong>&nbsp;&nbsp;<a href="#">Edit</a><br />
+		<a href="/foodfinder/settings/">Settings</a>&nbsp;&nbsp;<a href="/foodfinder/logout/">Logout</a><br /><br>
+		<strong>This is you.</strong><br>
 		Username: {{ user.username }}<br>
 		Email: {{ user.email }}<br>
 		Phone: {{ user.userprofile.phone }}<br><br>
-		<strong>Your eating preferences.</strong>&nbsp;&nbsp;<a href="#">Edit</a><br />
+		<strong>Your eating preferences.</strong>&nbsp;&nbsp;<a href='/foodfinder/settings/'>Change these</a><br />
 		{{ user.userprofile.preferences }}<br><br>
-		<strong>Notify me via:</strong>&nbsp;&nbsp;<a href="#">Edit</a><br>
-
-
+		<strong>Notify me via:</strong><br>
+		Email, text<br><br>
+		<strong>Good food today:</strong><br><br>
+		&nbsp;
 	</body>
 </html>
