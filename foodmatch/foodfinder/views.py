@@ -9,6 +9,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from foodfinder.models import UserProfile
 from django.contrib.auth.models import User
+from string_parser import StringRectifier
 
 def redirection(request):
 	context = RequestContext(request)
@@ -84,7 +85,11 @@ def get_context_dict(request):
 @login_required
 def home(request):
 	context = RequestContext(request)
-	return render_to_response("foodfinder/home.html", get_context_dict(request), context)
+	context_dict = get_context_dict(request)
+	x = StringRectifier("hello")
+	x.remove_crap()
+	context_dict['matches'] = x.matching()
+	return render_to_response("foodfinder/home.html", context_dict, context)
 
 @login_required
 def user_logout(request):
