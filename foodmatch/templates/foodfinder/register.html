@@ -1,10 +1,15 @@
 <!DOCTYPE html>
+{% extends 'foodfinder/index.html' %}
+
+{% block body_block %}
 <html>
     <head>
         <title>Hungry Bear - Register</title>
     </head>
 
     <body>
+                <center>
+
         <h1>Register for Hungry Bear</h1>
         {% if registered %}
             <strong>Thanks for signing up!</strong><br>
@@ -12,15 +17,20 @@
         {% else %}
         <form id="user_form" method="post" action="/foodfinder/register/"
                 enctype="multipart/form-data">
-            {% csrf_token %}
+            <input type='hidden' name='csrfmiddlewaretoken' value='9Dyzycq7msFWizIAd1jj0Afq1sXOEnEr' />
 
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
+            <p><label for="id_username">Username:</label> <input id="id_username" maxlength="30" name="username" type="text" /> <br><span class="helptext">Required. 30 characters or fewer. </span></p>
+<p><label for="id_email">Email address:</label> <input id="id_email" maxlength="75" name="email" type="text" /></p>
+<p><label for="id_password">Password:</label> <input id="id_password" name="password" type="password" /></p>
+            <p><label for="id_phone">Phone:</label> <input id="id_phone" name="phone" type="text" value="0" /></p>
+<p><label for="id_preferences">Preferences:</label> <input id="id_preferences" maxlength="128" name="preferences" type="text" /></p>
 
             <!-- Provide a button to click to submit the form. -->
             <input type="submit" name="submit" value="Register" />
         </form><br />
         {% endif %}
         <a href='/foodfinder/index/'>Back to main page.</a>
+    </center>
     </body>
 </html>
+{% endblock %}

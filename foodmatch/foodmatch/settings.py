@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'foodfinder',
+    #'bootstrap_toolkit',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -96,6 +97,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
+
+STATIC_PATH = os.path.join(PROJECT_PATH,'static')
+STATIC_URL = '/static/' # You may find this is already defined as such.
+
+STATICFILES_DIRS = (
+    STATIC_PATH,
+)
 
 LOGIN_URL = '/foodfinder/login/'

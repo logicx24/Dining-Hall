@@ -26,6 +26,10 @@ def index(request):
 
 request_record = 0
 
+def random(request):
+	context = RequestContext(request)
+	return render_to_response('foodfinder/untitled.html', context)
+
 def register(request):
 	global request_record
 	request_record = request
@@ -86,9 +90,15 @@ def get_context_dict(request):
 def home(request):
 	context = RequestContext(request)
 	context_dict = get_context_dict(request)
-	x = StringRectifier("hello")
+	x = StringRectifier(context_dict['userprofile'].preferences)
 	x.remove_crap()
-	context_dict['matches'] = x.matching()
+	matches = x.matching()
+	html = ""
+	for item in matches:
+		html += "<div style='margin-bottom: 4px; width: 400px; border-bottom: 1px solid #f0f0f0; float left;'>"
+		html += "<strong>"+item[0]+"</strong><br><font color='gray'>during "+item[1]+"</font><br><font color='gray'>at "+item[2]+"</font>"
+		html += "</div>"
+	context_dict['matches'] = html
 	return render_to_response("foodfinder/home.html", context_dict, context)
 
 @login_required

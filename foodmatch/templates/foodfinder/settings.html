@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+{% extends 'foodfinder/index.html' %}
 
+{% block body_block %}
 <html>
 	<head>
 		<title>Hungry Bear - Settings</title>
@@ -9,9 +11,10 @@
 		<a href="/foodfinder/home/">Home</a>&nbsp;&nbsp;<a href="/foodfinder/logout/">Logout</a><br /><br>
 		<form method='post' action="/foodfinder/settings/">
 			{% csrf_token %}
-			<strong>Change your preferences if you like.</strong><br>
+			<strong>Change your eating preferences if you like.</strong><br>
             <input type='text' name='preferences' id='preferences' style='width: 400px;' value='{{ user.userprofile.preferences }}'>
       		<input type='submit' value='Save changes'/>
 		</form>
 	</body>
 </html>
+{% endblock %}

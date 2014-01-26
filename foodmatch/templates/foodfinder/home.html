@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+{% extends 'foodfinder/index.html' %}
 
+{% block body_block %}
 <html>
 	<head>
 		<title>Hungry Bear - Home</title>
@@ -13,9 +15,10 @@
 		Phone: {{ user.userprofile.phone }}<br><br>
 		<strong>Your eating preferences.</strong>&nbsp;&nbsp;<a href='/foodfinder/settings/'>Change these</a><br />
 		{{ user.userprofile.preferences }}<br><br>
-		<strong>Notify me via:</strong><br>
-		Email, text<br><br>
+		<!--<strong>Notify me via:</strong><br>
+		Email, text<br><br>-->
 		<strong>Good food today:</strong><br><br>
-		{{ matches }};
+		{% autoescape off %}{{ matches }}{% endautoescape %}
 	</body>
 </html>
+{% endblock %}
