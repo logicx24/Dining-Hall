@@ -1,4 +1,5 @@
 # Create your views here.
+import os
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -10,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from foodfinder.models import UserProfile
 from django.contrib.auth.models import User
 from string_parser import StringRectifier
+
 
 def redirection(request):
 	context = RequestContext(request)
@@ -92,7 +94,7 @@ def home(request):
 	context_dict = get_context_dict(request)
 	x = StringRectifier(context_dict['userprofile'].preferences)
 	x.remove_crap()
-	matches = x.matching()
+	matches = x.matches()
 	html = ""
 	for item in matches:
 		html += "<div style='margin-bottom: 4px; width: 400px; border-bottom: 1px solid #f0f0f0; float left;'>"

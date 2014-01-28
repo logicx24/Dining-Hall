@@ -33,7 +33,7 @@ for person in all_users:
 	u = User.objects.get(username=person.username)
 	print(person.username)
 	#try:
-	up = u.get_profile()
+	up = UserProfile.objects.get(user=u)
 	#except:
 		#up = None
 	matches = get_matches(up)
