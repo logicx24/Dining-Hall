@@ -1,38 +1,25 @@
-
-
-from django.core.management import setup_environ
-from foodmatch import settings
 from twilio.rest import TwilioRestClient
-from foodfinder.models import User, UserProfile
-from string_parser import StringRectifier
+from menu_parser import MenuParser
 
-setup_environ(settings)
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'foodmatch.settings')
+from foodfinder.models import UserProfile, User
 
-# Your Account Sid and Auth Token from twilio.com/user/account
-account_sid = "ACeb7c885bc8076ac960a2a1e8f06de1aa"
-auth_token  = "1c70dd1e8a76c953b561845665ced631"
+account_sid = "AC20e35fdf8d24f77f436bf74f8bf18448"
+auth_token  = "2888edea88ebe1402dc28e2b5f404981"
 client = TwilioRestClient(account_sid, auth_token)
- 
-all_users = User.objects.all()
 
-for person in all_users: 
-	profile = UserProfile.objects.get(user=user)
-	matches = get_matches(person, profile)
-	if matches != "":
-		message = client.messages.create(body="",
-	    	to='+19175867213',
-	    	from_="+17184739056")
-		print message.sid
+menu_path = os.path.join(conf.settings.PROJECT_ROOT, 'menu.txt')
+menu = MenuParser(menu_path)
+menu = menu.parse_menu()
 
-
-def get_matches(user, profile):
-	x = StringRectifier(profile.preferences)
-	x.remove_crap()
-	matches = x.matching()
-	message = ""
-	meals = ['breakfast','lunch','dinner']
-	hall = ["crossroads", "cafe 3", "foothill", "clark kerr"]
-	for match in matches:
-		message += "We found a match! "+match[0]+" is being served during "+meals[match[1]-1]+" at "+hall[match[2]-1]+". "
-	return message
-
+user = User.objects.get(username="test")
+user_profile = UserProfile.objects.get(user=user)
+preferences = user_profile.preferences
+preferences = Preferences.createFromString(preferences)
+matches = menu.match_with(preferences)
+body = ""
+for item in matches.get_items(): # TODO: make menu object iterable
+	body += item.name + " is available\n"
+	
+client.messages.create(body=body, to='+18312240500',from_="+18319204557")
