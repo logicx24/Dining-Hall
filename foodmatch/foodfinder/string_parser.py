@@ -1,20 +1,20 @@
 import os
 
-def initialize_txt():
-	path = "Users/aakashjapi/Dropbox/Dining-Hall/foodmatchdfinder/menu.txt"
-	file1 = open("menu.txt")
-	data = file1.read()
-	str1 = str(data)
-	file1.close()
-	return str1
-
 class StringRectifier(object):
 
-	def __init__(self, string):
+	def __init__(self, string, file1):
+		self.file1 = file1
 		self.corpus = string
-		self.diner = initialize_txt()
+		self.diner = self.initialize_txt()
 		self.meals = {1:'Breakfast', 2:'Lunch/Brunch', 3:'Dinner'}
 		self.halls = {1:'Crossroads', 2:'Unit 3', 3:'Foothill', 4:'Clark Kerr'}
+
+	def initialize_txt(self):
+		path = "Users/aakashjapi/Dropbox/Dining-Hall/foodmatchdfinder/menu.txt"
+		data = self.file1.read()
+		str1 = str(data)
+		#self.file1.close()
+		return str1
 
 	def remove_crap(self):
 		self.corpus = self.corpus.lower()

@@ -11,7 +11,10 @@ from django.contrib.auth.decorators import login_required
 from foodfinder.models import UserProfile
 from django.contrib.auth.models import User
 from string_parser import StringRectifier
+from django.conf import settings
+from django.views.decorators.csrf import csrf_protect
 
+file_ = open(os.path.join(settings.PROJECT_ROOT, 'menu.txt'))
 
 def redirection(request):
 	context = RequestContext(request)
@@ -88,11 +91,13 @@ def get_context_dict(request):
 	context_dict = {'user': u, 'userprofile': up}
 	return context_dict;
 
+@csrf_protect
 @login_required
 def home(request):
 	context = RequestContext(request)
 	context_dict = get_context_dict(request)
-	x = StringRectifier(context_dict['userprofile'].preferences)
+	x = StringRectifier(context_dict['userprofile'].preferences,file_)
+
 	x.remove_crap()
 	matches = x.matches()
 	html = ""
