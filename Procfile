@@ -1,1 +1,1 @@
-web: gunicorn foodfinder.wsgi
+web: python foodfinder/manage.py runserver "0.0.0.0:$PORT" 
