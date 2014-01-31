@@ -18,7 +18,7 @@ class MenuParser(object):
 			return self.menu
 		#self.diner = self.diner.lower()
 		#self.diner = self.diner.splitlines()
-		self.menu = self.menu.lower().splitlines()
+		self.menu = self.menu.splitlines()
 		parsed_menu = Menu()
 		for menu_item in self.menu:
 			menu_item = menu_item[1:-1] # remove parenthases

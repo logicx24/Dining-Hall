@@ -1,4 +1,5 @@
 class Food(object):
+	# TODO: enumerate dining locations and times
 
 	def __init__(self, name, location, meal):
 		self.name = name

@@ -11,10 +11,12 @@ from django.contrib.auth.decorators import login_required
 from foodfinder.models import UserProfile
 from django.contrib.auth.models import User
 from string_parser import StringRectifier
-from django.conf import settings
+from django import conf
 from django.views.decorators.csrf import csrf_protect
+from menu_parser import MenuParser
+from preferences import Preferences
 
-file_ = open(os.path.join(settings.PROJECT_ROOT, 'menu.txt'))
+# file_ = open(os.path.join(settings.PROJECT_ROOT, 'menu.txt'))
 
 def redirection(request):
 	context = RequestContext(request)
@@ -96,14 +98,17 @@ def get_context_dict(request):
 def home(request):
 	context = RequestContext(request)
 	context_dict = get_context_dict(request)
-	x = StringRectifier(context_dict['userprofile'].preferences,file_)
 
-	x.remove_crap()
-	matches = x.matches()
+	menu_path = os.path.join(conf.settings.PROJECT_ROOT, 'menu.txt')
+	menu = MenuParser(menu_path)
+	menu = menu.parse_menu()
+	preferences = context_dict['userprofile'].preferences
+	preferences = Preferences.createFromString(preferences)
+	matches = menu.match_with(preferences)
 	html = ""
-	for item in matches:
+	for item in matches.get_items(): # TODO: make menu object iterable
 		html += "<div style='margin-bottom: 4px; width: 400px; border-bottom: 1px solid #f0f0f0; float left;'>"
-		html += "<strong>"+item[0]+"</strong><br><font color='gray'>during "+item[1]+"</font><br><font color='gray'>at "+item[2]+"</font>"
+		html += "<strong>"+item.name+"</strong><br><font color='gray'>during "+item.meal+"</font><br><font color='gray'>at "+item.location+"</font>"
 		html += "</div>"
 	context_dict['matches'] = html
 	return render_to_response("foodfinder/home.html", context_dict, context)
