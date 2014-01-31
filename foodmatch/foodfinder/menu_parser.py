@@ -30,4 +30,3 @@ class MenuParser(object):
 		return self.menu
 
 menu = MenuParser("/Users/kklin/development/Dining-Hall/foodmatch/foodmatch/menu.txt")
-print(menu.parse_menu())
