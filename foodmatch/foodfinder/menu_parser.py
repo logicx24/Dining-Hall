@@ -28,5 +28,3 @@ class MenuParser(object):
 		self.is_parsed = True
 		self.menu = parsed_menu
 		return self.menu
-
-menu = MenuParser("/Users/kklin/development/Dining-Hall/foodmatch/foodmatch/menu.txt")
