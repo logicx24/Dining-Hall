@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup, Comment
 from foodfinder.food import Food
 import urllib2
+import datetime
 
 #"populate_day mostly created by https://github.com/mikehcheng"
 #python 2.75
@@ -20,7 +21,7 @@ def scrape_menus():
     #more than one vegetarian color o__O
 
     all_food = []
-    
+
     for time in content: #b/l/d
         for l, loc in enumerate(time.find_all('td')): #cr/c3/fh/ck
             meal = unicode(loc.find('b').string) #meals bolded
@@ -33,7 +34,7 @@ def scrape_menus():
                 #ftype = FOODTYPE[unicode(entree.font['color'])]
                 dininghall = LOCATIONS[l]
                 name = str(name)
-                
+
                 all_food.append(Food(name, dininghall, meal))
 
     return all_food
@@ -41,8 +42,13 @@ def scrape_menus():
 if __name__ == "__main__":
     all_food = scrape_menus()
     file = open('foodmatch/menu.txt', 'w')
+    cumulative = open('cumulative_menu.txt', 'a')
+    cumulative.write("===================================\n")
+    cumulative.write(str(datetime.datetime.now()).split('.')[0] + "\n")
     for food in all_food:
         file.write( "(" + str(food.name) + "," + str(food.location) + "," + str(food.meal) + ")")
         file.write("\n")
+        cumulative.write( "(" + str(food.name) + "," + str(food.location) + "," + str(food.meal) + ")")
+        cumulative.write("\n")
     file.close()
 
