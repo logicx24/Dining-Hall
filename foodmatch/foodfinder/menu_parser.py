@@ -29,4 +29,4 @@ class MenuParser(object):
 		self.menu = parsed_menu
 		return self.menu
 
-menu = MenuParser("/Users/kklin/development/Dining-Hall/foodmatch/foodmatch/menu.txt")
+#menu = MenuParser("/Users/kklin/development/Dining-Hall/foodmatch/foodmatch/menu.txt")

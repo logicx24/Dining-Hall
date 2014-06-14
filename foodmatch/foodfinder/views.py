@@ -10,7 +10,6 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from foodfinder.models import UserProfile
 from django.contrib.auth.models import User
-from string_parser import StringRectifier
 from django import conf
 from django.views.decorators.csrf import csrf_protect
 from menu_parser import MenuParser
