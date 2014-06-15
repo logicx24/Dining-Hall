@@ -26,7 +26,7 @@ def scrape_menus():
         for l, loc in enumerate(time.find_all('td')): #cr/c3/fh/ck
             meal = unicode(loc.find('b').string) #meals bolded
             #TRASH.PY
-            if meal == u"Lunch/Brunch":
+            if meal == u"Lunch/Brunch": 
                 meal = u"Lunch"
             entrees = loc.find_all('a')      #all meals linked to nutrition
             for entree in entrees:

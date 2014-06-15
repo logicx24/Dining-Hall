@@ -17,6 +17,7 @@
         {% else %}
         <form id="user_form" method="post" action="/foodfinder/register/"
                 enctype="multipart/form-data">
+                {% csrf_token %}
             <input type='hidden' name='csrfmiddlewaretoken' value='9Dyzycq7msFWizIAd1jj0Afq1sXOEnEr' />
 
             <p><label for="id_username">Username:</label> <input id="id_username" maxlength="30" name="username" type="text" /> <br><span class="helptext">Required. 30 characters or fewer. </span></p>
