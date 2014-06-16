@@ -12,55 +12,58 @@
 	    	#main {
 	    		margin: 0 auto;
 	    		width: 500px;
+	   			background-image: url('');
 	    	}
 	    	#main #buttons {
 	    		width: 100%;
 	    		text-align: left;
 	    	}
-	    </style>
-	    <!---<link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css"> -->
-	    
-    <title> {% block title %}Hungry Bear - Eat Right.{% endblock %}</title>
-</div>    
-</head>
-	
-	</head>
-<body>		<!--
-		<div class="navbar navbar-inverse navbar-fixed-top">
-   		<div class="navbar-inner">
-       	<div class="container">
-           	<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-           	</button>
-           	<div class="nav-collapse collapse">
-               <ul class="nav pull-right">
-                    <li><a href="/foodfinder/register/">Register</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <li><a href="/foodfinder/login/">Login</a></li>
-           	</div>
-       	</div>
-   	</div>
-</div>-->
-		<div id='main'>
-		{% block body_block %}
-		<div>
-			<h1>Welcome to Hungry Bear</h1>
-			<p>Hungry? Just tell <b>Hungry Bear</b> what you like to eat, <br> and it'll notify you whenever Cal Dining is serving something you like!</p>
-			<div id='buttons'>
-                    <a href="/foodfinder/register/">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/foodfinder/login/">Login</a>
-            </div>
 
-		{% endblock %}	
-		</div>		
-	</div>
+	    	html, body {
+	    		height: 100%;
+	    	}
+
+	    	body {  position: relative;}
+
+			body:before {
+			    content: "";
+			    position: absolute;
+			    top: 0;
+			    bottom: 0;
+			    left: 0;
+			    right: 0;
+			    z-index: 1;
+			    background-image: url('http://upload.wikimedia.org/wikipedia/commons/7/7f/UCBerkeleyCampus.jpg');
+			   	background-size: 100% auto;
+			   opacity: 0.3;
+			}
+
+			#main {
+			    position: relative; 
+			    z-index: 2;
+			}​
+	    </style>
+    <title> {% block title %} Hungry Bear - Eat Right. {% endblock %}</title>
+	</head>
+	<body>
+		<div id='main'>
+			{% block body_block %}
+			<div>
+				<h1>Welcome to Hungry Bear</h1>
+				<p>Hungry? Just tell <b>Hungry Bear</b> what you like to eat, <br> and it'll notify you whenever Cal Dining is serving something you like!</p>
+				<div id='buttons'>
+	                <a href="/foodfinder/register/"><font color="black">Register</font></a>&nbsp;&nbsp;&nbsp;&nbsp;
+	                <a href="/foodfinder/login/"><font color="black">Login</font></a>
+	            </div>
+	        </div>
+	        {% endblock %}
+	    </div>
 		<script src="{% static 'js/jquery-2.0.3.min.js' %}"></script>
     	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-	</body>
 	<footer>
     	<div class="container" style="margin: 0 auto; width: 500px; margin-top: 6px;">
-        	<p>&copy; Hungry Bear 2013</p>
+        	<p><b>&copy; Hungry Bear 2013</b></p>
     	</div>
 	</footer>
+	</body>
 </html>

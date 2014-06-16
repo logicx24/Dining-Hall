@@ -8,29 +8,27 @@
     </head>
 
     <body>
-                <center>
 
-        <h1>Register for Hungry Bear</h1>
+        <h1>Welcome to Hungry Bear</h1>
+        <h3 style="text-decoration: underline;">Register for an account</h3>
         {% if registered %}
             <strong>Thanks for signing up!</strong><br>
             Go ahead and <a href="/foodfinder/login">login.</a><br />
         {% else %}
-        <form id="user_form" method="post" action="/foodfinder/register/"
-                enctype="multipart/form-data">
-            <input type='hidden' name='csrfmiddlewaretoken' value='9Dyzycq7msFWizIAd1jj0Afq1sXOEnEr' />
-
-            <p><label for="id_username">Username:</label> <input id="id_username" maxlength="30" name="username" type="text" /> <br><span class="helptext">Required. 30 characters or fewer. </span></p>
-<p><label for="id_email">Email address:</label> <input id="id_email" maxlength="75" name="email" type="text" /></p>
-<p><label for="id_password">Password:</label> <input id="id_password" name="password" type="password" /></p>
-            <p><label for="id_phone">Phone:</label> <input id="id_phone" name="phone" type="text" value="0" /></p>
-<p><label for="id_preferences">Preferences:</label> <input id="id_preferences" maxlength="128" name="preferences" type="text" /></p>
-
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Register" />
-        </form><br />
+            <form id="user_form" method="post" action="/foodfinder/register/" enctype="multipart/form-data" style="margin-bottom: 15px;">
+                {% csrf_token %}
+                <p><input id="id_username" maxlength="30" name="username" type="text" placeholder="username" style="width: 265px;"/> <br></p>
+                <p><input id="id_email" maxlength="75" name="email" type="text" placeholder="email@berkeley.edu" style="width: 265px;"/></p>
+                <p><input id="id_password" name="password" type="password" placeholder="**********" style="width: 265px;"/></p>
+                <p><input id="id_phone" name="phone" type="text" placeholder="5043368080" style="width: 265px;"/></p>
+                <p><input id="id_preferences" maxlength="128" name="preferences" type="text" placeholder="nachos, tator tots, grilled cheese" style="width: 265px;"/></p>
+                <!-- Provide a button to click to submit the form. -->
+                <input type="submit" name="submit" value="Register" />
+            </form>
         {% endif %}
-        <a href='/foodfinder/index/'>Back to main page.</a>
-    </center>
+        <div id='buttons'>
+            <a href="/foodfinder/index/"><font color="black">Back to main page</font></a>
+        </div>
     </body>
 </html>
 {% endblock %}

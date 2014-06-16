@@ -7,7 +7,7 @@
 		<title>Hungry Bear - Home</title>
 	</head>
 	<body>
-		<h1>Welcome, {{ user.username }}, to Hungry Bear</h1> 
+		<h1>Welcome to Hungry Bear</h1> 
 		<a href="/foodfinder/settings/">Settings</a>&nbsp;&nbsp;<a href="/foodfinder/logout/">Logout</a><br /><br>
 		<strong>This is you.</strong><br>
 		Username: {{ user.username }}<br>
@@ -17,8 +17,9 @@
 		{{ user.userprofile.preferences }}<br><br>
 		<!--<strong>Notify me via:</strong><br>
 		Email, text<br><br>-->
-		<strong>Good food today:</strong><br><br>
+		<strong>Your personal menu.</strong><br>
 		{% autoescape off %}{{ matches }}{% endautoescape %}
+		<br>
 	</body>
 </html>
 {% endblock %}

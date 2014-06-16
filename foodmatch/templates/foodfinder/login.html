@@ -4,23 +4,21 @@
 {% block body_block %}
 <html>
     <head>
-        <!-- Is anyone getting tired of repeatedly entering the header over and over?? -->
         <title>Hungry Bear - Login</title>
     </head>
 
     <body>
-        <h1 style='margin-bottom: 12px;'>Login to Hungry Bear</h1>
-
-        <form id="login_form" method="post" action="/foodfinder/login/">
+        <h1>Welcome to Hungry Bear</h1>
+        <h3 style="text-decoration: underline;">Login to your account</h3>
+        <form id="login_form" method="post" action="/foodfinder/login/" style="margin-bottom: 15px;">
             {% csrf_token %}
-            Username: <input type="text" name="username" value="" size="50" />
-            <br />
-            Password: <input type="password" name="password" value="" size="50" />
-            <br />
-
+            <input type="text" name="username" value="" size="50" placeholder="username"/><br />
+            <input type="password" name="password" value="" size="50" placeholder="************"/><br />
             <input type="submit" value="submit" />
         </form>
-        <a href="/foodfinder/index/">Back to main page</a>
+        <div id='buttons'>
+            <a href="/foodfinder/index/"><font color="black">Back to main page</font></a>
+        </div>
     </body>
 </html>
 {% endblock %}
