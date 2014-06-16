@@ -1,0 +1,4 @@
+Django==1.6.1
+twilio==3.6.4
+beautifulsoup4==4.3.2
+html5lib==0.999

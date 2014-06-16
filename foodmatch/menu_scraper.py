@@ -1,24 +1,13 @@
 from bs4 import BeautifulSoup, Comment
+from foodfinder.food import Food
 import urllib2
+import datetime
 
 #"populate_day mostly created by https://github.com/mikehcheng"
 #python 2.75
 #html5lib is requried, pip install html5lib
 
-class MenuItem():
-        def __init__(self, food, dc, meal):
-            self.food = food
-            self.dc = dc
-            self.meal = meal
-        def __str__(self):
-            print self.food
-            print self.dc
-            print self.meal
-            print ".............."
-            return "\n"
-all_food = []
-def populate_day():
-
+def scrape_menus():
 
     response = urllib2.urlopen('http://services.housing.berkeley.edu/FoodPro/dining/static/todaysentrees.asp')
     html = response.read()
@@ -31,11 +20,13 @@ def populate_day():
     #FOODTYPE = {u'#800040': 'Vegan', u'#008000': 'Vegetarian', u'#000000': 'Regular'}
     #more than one vegetarian color o__O
 
+    all_food = []
+
     for time in content: #b/l/d
         for l, loc in enumerate(time.find_all('td')): #cr/c3/fh/ck
             meal = unicode(loc.find('b').string) #meals bolded
             #TRASH.PY
-            if meal == u"Lunch/Brunch":
+            if meal == u"Lunch/Brunch": 
                 meal = u"Lunch"
             entrees = loc.find_all('a')      #all meals linked to nutrition
             for entree in entrees:
@@ -43,12 +34,21 @@ def populate_day():
                 #ftype = FOODTYPE[unicode(entree.font['color'])]
                 dininghall = LOCATIONS[l]
                 name = str(name)
-                
-                all_food.append(MenuItem(name, dininghall,meal))
-populate_day()
-file = open('menu.txt', 'w')
-for i in all_food:
-    file.write( "(" + str(i.food) + "," + str(i.dc) + "," + str(i.meal) + ")")
-    file.write("\n")
-file.close()
+
+                all_food.append(Food(name, dininghall, meal))
+
+    return all_food
+
+if __name__ == "__main__":
+    all_food = scrape_menus()
+    file = open('foodmatch/menu.txt', 'w')
+    cumulative = open('cumulative_menu.txt', 'a')
+    cumulative.write("===================================\n")
+    cumulative.write(str(datetime.datetime.now()).split('.')[0] + "\n")
+    for food in all_food:
+        file.write( "(" + str(food.name) + "," + str(food.location) + "," + str(food.meal) + ")")
+        file.write("\n")
+        cumulative.write( "(" + str(food.name) + "," + str(food.location) + "," + str(food.meal) + ")")
+        cumulative.write("\n")
+    file.close()
 

@@ -15,6 +15,7 @@
             <strong>Thanks for signing up!</strong><br>
             Go ahead and <a href="/foodfinder/login">login.</a><br />
         {% else %}
+<<<<<<< HEAD
             <form id="user_form" method="post" action="/foodfinder/register/" enctype="multipart/form-data" style="margin-bottom: 15px;">
                 {% csrf_token %}
                 <p><input id="id_username" maxlength="30" name="username" type="text" placeholder="username" style="width: 265px;"/> <br></p>
@@ -25,6 +26,22 @@
                 <!-- Provide a button to click to submit the form. -->
                 <input type="submit" name="submit" value="Register" />
             </form>
+=======
+        <form id="user_form" method="post" action="/foodfinder/register/"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+            <input type='hidden' name='csrfmiddlewaretoken' value='9Dyzycq7msFWizIAd1jj0Afq1sXOEnEr' />
+
+            <p><label for="id_username">Username:</label> <input id="id_username" maxlength="30" name="username" type="text" /> <br><span class="helptext">Required. 30 characters or fewer. </span></p>
+<p><label for="id_email">Email address:</label> <input id="id_email" maxlength="75" name="email" type="text" /></p>
+<p><label for="id_password">Password:</label> <input id="id_password" name="password" type="password" /></p>
+            <p><label for="id_phone">Phone:</label> <input id="id_phone" name="phone" type="text" value="0" /></p>
+<p><label for="id_preferences">Preferences:</label> <input id="id_preferences" maxlength="128" name="preferences" type="text" /></p>
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Register" />
+        </form><br />
+>>>>>>> 96c4c242de319ac2e6f1df618e5978e2118de96a
         {% endif %}
         <div id='buttons'>
             <a href="/foodfinder/index/"><font color="black">Back to main page</font></a>
